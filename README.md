@@ -1,6 +1,6 @@
 # rime
 
-Algorithms for feature extraction from spatiotemporal data. Includes methods for working with spatial sources.
+Algorithms for feature extraction from spatiotemporal data. Includes methods for working with and rendering spatial sources, and saving them to/from disk.
 
 # API notes
 
