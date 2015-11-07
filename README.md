@@ -23,3 +23,9 @@ sources = load('sources.json')
 ```python
 sources.save('sources.json')
 ```
+
+## rendering sources
+
+```python
+im = sources.masks([x, y])
+```
