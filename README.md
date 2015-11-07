@@ -8,7 +8,7 @@ Algorithms for feature extraction from spatiotemporal data. Includes methods for
 
 ```python
 from rime.algorithms import LocalMax
-model = LocalMax().fit(data)
+model = LocalMax(params).fit(data)
 ```
 
 ## loading existing sources
@@ -20,6 +20,6 @@ sources = load('sources.json')
 
 ## saving sources
 
-```
+```python
 sources.save('sources.json')
 ```
