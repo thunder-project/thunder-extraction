@@ -2,7 +2,9 @@
 
 Algorithms for feature extraction from spatiotemporal data. Includes methods for working with and rendering spatial sources, and saving them to/from disk.
 
-# API notes
+# API reference
+
+## algorithms
 
 ## running an algorithm
 
@@ -11,20 +13,22 @@ from rime.algorithms import LocalMax
 sources = LocalMax(params).fit(data)
 ```
 
-## loading existing sources
+## sources
+
+### loading
 
 ```python
 from rime import load
 sources = load('sources.json')
 ```
 
-## saving sources
+### saving
 
 ```python
 sources.save('sources.json')
 ```
 
-## rendering sources
+### rendering
 
 ```python
 im = sources.masks([x, y])
