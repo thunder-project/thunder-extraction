@@ -1,35 +1,36 @@
-# rime
+# thunder-extract
 
-Algorithms for feature extraction from spatiotemporal data. Includes methods for working with and rendering spatial sources, and saving them to/from disk.
+Algorithms for extracting features from spatial and temporal data. Includes a collection of `algorithms` that can be `fit` to data, all of which return a `model` that can be used to `transform` new data, in the `scikit-learn` style. Built on `numpy`, `scipy`, `sklearn`, and `skimage`. Works well alongside `thunder`, but can be used as a standalone module on local arrays.
 
-# API reference
+# examples
 
 ### algorithms
 
 running an algorithm
 
 ```python
-from rime.algorithms import LocalMax
-sources = LocalMax(params).fit(data)
+from extract import NMF
+model = NMF(params).fit(data)
 ```
 
-### sources
+transforming data
+
+```python
+result = model.transform(data)
+```
+
+### models
 
 loading
 
 ```python
-from rime import load
-sources = load('sources.json')
+from extract import load
+model = load('model.json')
+result = model.transform(data)
 ```
 
 saving
 
 ```python
-sources.save('sources.json')
-```
-
-rendering
-
-```python
-im = sources.masks([x, y])
+model.save('model.json')
 ```
