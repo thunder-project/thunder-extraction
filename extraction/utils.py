@@ -59,7 +59,7 @@ def make_gaussian(shape=(100, 200), n=5, t=50, sd=3, noise=0.1, seed=None, engin
     margin = [shape[0] * 0.1, shape[1] * 0.1]
     xcenters = (shape[0] - margin[0]) * random.random_sample(n) + margin[0]/2
     ycenters = (shape[1] - margin[1]) * random.random_sample(n) + margin[1]/2
-    centers = zip(xcenters, ycenters)
+    centers = list(zip(xcenters, ycenters))
 
     series = [random.randn(t) for i in range(0, n)]
     series = clip(asarray([gaussian_filter1d(vec, 5) for vec in series]), 0, 1)
