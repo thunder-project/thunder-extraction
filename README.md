@@ -21,8 +21,8 @@ In this example we'll generate data and fit a model
 ```python
 # generate data
 
-from extraction import make_data
-data = make_data()
+from extraction.utils import make_gaussian
+data = make_gaussian()
 
 # fit a model
 
