@@ -6,7 +6,9 @@ from .utils import check_images
 class ExtractionModel(object):
 
     def __init__(self, regions):
-        if isinstance(regions, many):
+        if isinstance(regions, list):
+            self.regions = many(regions)
+        elif isinstance(regions, many):
             self.regions = regions
         else:
             raise Exception("Input type not recognized, must be many regions")
@@ -14,6 +16,8 @@ class ExtractionModel(object):
     def transform(self, images):
         """
         Transform image data by averaging within regions.
+
+        Will compute the average within 
 
         Parameters
         ----------

@@ -1,13 +1,10 @@
 # generate data
 
-from extraction import make_data
-data = make_data()
+from extraction.utils import make_gaussian
+data = make_gaussian()
+
+print data
 
 # fit a model
 
-from extraction import NMF
-model = NMF(k=10).fit(data)
-
 # extract sources by transforming data
-
-sources = model.transform(data)
