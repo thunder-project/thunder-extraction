@@ -20,7 +20,7 @@ def check_images(data):
 
     return data
 
-def make_gaussian(shape=(100, 200), n=5, t=100, sd=3, noise=0.1, seed=None, engine=None, withparams=False):
+def make_gaussian(shape=(100, 200), n=5, t=50, sd=3, noise=0.1, seed=None, engine=None, withparams=False):
     """
     Generate random gaussian source data.
 
