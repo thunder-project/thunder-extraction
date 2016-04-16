@@ -4,7 +4,7 @@
 
 Source or feature extraction is the process of identifying spatial features of interest from data that varies over space and time. It can be either unsupervised or supervised, and is common in biological data analysis problems, like identifying neurons in calcium imaging data.
 
-This package contains a collection of approaches for solving this problem. It defines a set of `algorithms` in the `scikit-learn` style, each of which can be `fit` to data, and return a `model` that can be used to `transform` new data. Compatible with Python 2.7+ and 3.4+. Works well alongside `thunder` and supports parallelization via spark, but can also be used on local `numpy` arrays.
+This package contains a collection of approaches for solving this problem. It defines a set of `algorithms` in the [`scikit-learn`](https://github.com/scikit-learn/scikit-learn) style, each of which can be `fit` to data, and return a `model` that can be used to `transform` new data. Compatible with Python 2.7+ and 3.4+. Works well alongside [`thunder`](https://github.com/thunder-project/thunder) and supprts parallelization via [`spark`](https://github.com/apache/spark), but can be used as a standalone package on local [`numpy`](https://github.com/numpy/numpy) arrays.
 
 ## installation
 
@@ -27,7 +27,7 @@ data = make_gaussian()
 # fit a model
 
 from extraction import NMF
-model = NMF(k=10).fit(data)
+model = NMF().fit(data)
 
 # extract sources by transforming data
 
@@ -63,11 +63,11 @@ All algorithms have the following methods
 
 #### `algorithm.fit(data)`
 
-Fits the algorithm to the data, which should be a collection of time-varying images. It can either be a `thunder` `images` object, or an `x by y by z by t` `numpy` array.
+Fits the algorithm to the data, which should be a collection of time-varying images. It can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a `numpy` array with shape `t,x,y(,z)`.
 
 ### model
 
-The result of fitting an `algorithm` is a `model`. Every `model` has the following properties methods.
+The result of fitting an `algorithm` is a `model`. Every `model` has the following properties and methods.
 
 #### `model.regions`
 
@@ -75,15 +75,15 @@ The spatial regions identified during fitting.
 
 #### `model.transform(data)`
 
-Transform a new data set using the `model`. As with fitting, `data` can either be a `thunder` `images` object, or an `x by y by z by t` `numpy` array. It will return a `thunder` `series` object.
+Transform a new data set using the `model`, by averaging pixels within each of the `regions`. As with fitting, `data` can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a `numpy` array with shape `t,x,y(,z)`. It will return a [`thunder`](https://github.com/thunder-project/thunder) `series` object.
 
 ## list of algorithms
 
-The following algorithms are available:
+Here are all the algorithms currently available.
 
 #### `NMF(k=10, max_iterations=10, threshold=0.5, overlap=0.5)`
 
-Perform local non-negative matrix factorization and threshold to yield binary spatial regions.
+Perform local non-negative matrix factorization and thresholding to yield binary spatial regions.
 
 - `k` number of components
 - `max_iterations` maximum number of iterations to perform

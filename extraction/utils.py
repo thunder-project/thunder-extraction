@@ -20,7 +20,7 @@ def check_images(data):
 
     return data
 
-def make_gaussian(shape=(100, 200), n=5, t=50, sd=3, noise=0.1, seed=None, engine=None, withparams=False):
+def make_gaussian(shape=(100, 200), n=5, t=100, sd=3, noise=0.1, seed=None, engine=None, withparams=False):
     """
     Generate random gaussian source data.
 
@@ -64,7 +64,7 @@ def make_gaussian(shape=(100, 200), n=5, t=50, sd=3, noise=0.1, seed=None, engin
     series = [random.randn(t) for i in range(0, n)]
     series = clip(asarray([gaussian_filter1d(vec, 5) for vec in series]), 0, 1)
     for ii, tt in enumerate(series):
-        series[ii] = (tt / tt.max()) * 2
+        series[ii] = (tt / (tt.max() + 0.01)) * 2
 
     frames = []
     for tt in range(t):
@@ -88,6 +88,6 @@ def make_gaussian(shape=(100, 200), n=5, t=50, sd=3, noise=0.1, seed=None, engin
 
     data = fromlist(frames, engine=engine).astype('float')
     if withparams is True:
-        return data, series, sources
+        return data, series, model
     else:
         return data
