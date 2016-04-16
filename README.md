@@ -63,7 +63,7 @@ All algorithms have the following methods
 
 #### `algorithm.fit(data, opts)`
 
-Fits the algorithm to the data, which should be a collection of time-varying images. It can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a [`numpy`](https://github.com/numpy/numpy) array with shape `t,x,y(,z)`.
+Fits the algorithm to the data, which should be a collection of time-varying images. It can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a [`numpy`](https://github.com/numpy/numpy) array with shape `t,z,y,x` or `t,y,x`.
 
 ### model
 
