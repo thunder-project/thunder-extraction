@@ -96,4 +96,4 @@ The algorithm takes the following parameters.
 
 The fit method takes the following options.
 
-- `block_size` a size in megabytes like `150` or a size in pixels like `(10,10)`, if unspecified, will apply algorithm to full images
+- `block_size` a size in megabytes like `150` or a size in pixels like `(10,10)`, if `None` will use full image
