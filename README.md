@@ -61,9 +61,9 @@ signals = model.transform(data)
 
 All algorithms have the following methods
 
-#### `algorithm.fit(data)`
+#### `algorithm.fit(data, opts)`
 
-Fits the algorithm to the data, which should be a collection of time-varying images. It can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a `numpy` array with shape `t,x,y(,z)`.
+Fits the algorithm to the data, which should be a collection of time-varying images. It can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a [`numpy`](https://github.com/numpy/numpy) array with shape `t,x,y(,z)`.
 
 ### model
 
@@ -81,11 +81,15 @@ Transform a new data set using the `model`, by averaging pixels within each of t
 
 Here are all the algorithms currently available.
 
-#### `NMF(k=10, max_iterations=10, threshold=0.5, overlap=0.5)`
+#### `NMF(k=5, max_size='full', min_size=20, max_iter=20, percentile=95, overlap=0.1)`
 
-Perform local non-negative matrix factorization and thresholding to yield binary spatial regions.
+Local non-negative matrix factorization followed by thresholding to yield binary spatial regions.
 
 - `k` number of components
 - `max_iterations` maximum number of iterations to perform
 - `threshold` percentile to use for thresholding
 - `overlap` degree of overlap required for merging
+
+#### `fit(data, block_size=None)`
+
+Fit the algorithm to `data`. Optionally specify a `block_size` which blocks the data using the specified block size, which can either be a size in megabytes like `150` or a size in pixels like `(10,10)`. If unspecified, will apply algorithm to the full image.
