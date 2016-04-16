@@ -93,8 +93,6 @@ The algorithm takes the following parameters.
 - `max_iter` maximum number of algorithm iterations
 - `percentile` value for thresholding (higher means more thresholding)
 - `overlap` value for determining whether to merge (higher means fewer merges) 
-- `threshold` percentile to use for thresholding
-- `overlap` degree of overlap required for merging
 
 The fit method takes the following options.
 
