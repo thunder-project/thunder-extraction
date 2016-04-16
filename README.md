@@ -81,7 +81,7 @@ Transform a new data set using the `model`, by averaging pixels within each of t
 
 Here are all the algorithms currently available.
 
-#### `NMF(k=5, max_size='full', min_size=20, max_iter=20, percentile=95, overlap=0.1)`
+#### `NMF(k=5, max_iter=20, max_size='full', min_size=20, percentile=95, overlap=0.1)`
 
 Local non-negative matrix factorization followed by thresholding to yield binary spatial regions. Applies factorization either to image blocks or to the entire image.
 

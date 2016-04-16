@@ -13,7 +13,7 @@ class NMF(object):
   """
   Source extraction using local non-negative matrix factorization.
   """
-  def __init__(self, k=5, max_size='full', min_size=20, max_iter=20, percentile=95, overlap=0.1):
+  def __init__(self, k=5, max_iter=20, max_size='full', min_size=20, percentile=95, overlap=0.1):
       self.k = k
       self.max_iter = max_iter
       self.min_size = min_size
