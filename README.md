@@ -83,13 +83,19 @@ Here are all the algorithms currently available.
 
 #### `NMF(k=5, max_size='full', min_size=20, max_iter=20, percentile=95, overlap=0.1)`
 
-Local non-negative matrix factorization followed by thresholding to yield binary spatial regions.
+Local non-negative matrix factorization followed by thresholding to yield binary spatial regions. Applies factorization either to image blocks or to the entire image.
 
-- `k` number of components
-- `max_iterations` maximum number of iterations to perform
+The algorithm takes the following parameters.
+
+- `k` number of components to estimate per block
+- `max_size` maximum size of each region
+- `min_size` minimum size for each region
+- `max_iter` maximum number of algorithm iterations
+- `percentile` value for thresholding (higher means more thresholding)
+- `overlap` value for determining whether to merge (higher means fewer merges) 
 - `threshold` percentile to use for thresholding
 - `overlap` degree of overlap required for merging
 
-#### `fit(data, block_size=None)`
+The fit method takes the following options.
 
-Fit the algorithm to `data`. Optionally specify a `block_size` which blocks the data using the specified block size, which can either be a size in megabytes like `150` or a size in pixels like `(10,10)`. If unspecified, will apply algorithm to the full image.
+- `block_size` a size in megabytes like `150` or a size in pixels like `(10,10)`, if unspecified, will apply algorithm to full images
