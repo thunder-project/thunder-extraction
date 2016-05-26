@@ -1,4 +1,4 @@
-thunder >= 1.0.0
+thunder-python >= 1.0.0
 numpy
 regional
 scipy
