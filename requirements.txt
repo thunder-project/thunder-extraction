@@ -1,4 +1,4 @@
-git+git://github.com/thunder-project/thunder.git@1.0.0
+thunder >= 1.0.0
 numpy
 regional
 scipy
