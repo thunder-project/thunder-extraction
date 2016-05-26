@@ -21,18 +21,26 @@ class NMF(object):
       self.overlap = overlap
       self.percentile = percentile
 
-  def fit(self, images, block_size=None):
+  def fit(self, images, chunk_size=None):
       images = check_images(images)
-      block_size = block_size if block_size is not None else images.shape[1:]
-      blocks = images.toblocks(size=block_size)
-      shape = blocks.blockshape
-      sources = blocks.tordd().map(lambda kv: self._get(kv[0], kv[1], shape))
-      collected = sources.collect()
-      return ExtractionModel(many(list(itertools.chain.from_iterable(collected))))
+      chunk_size = chunk_size if chunk_size is not None else images.shape[1:]
+      blocks = images.toblocks(size=chunk_size)
+      sources = asarray(blocks.map_generic(self._get))
 
-  def _get(self, index, block, shape):
+      # add offsets based on block coordinates
+      for inds in itertools.product(*[range(d) for d in sources.shape]):
+          offset = (asarray(inds) * asarray(blocks.blockshape)[1:])
+          for source in sources[inds]:
+              source.coordinates += offset
+      
+      # flatten list and create model
+      flattened = list(itertools.chain.from_iterable(sources.flatten().tolist()))
+      return ExtractionModel(many(flattened))
 
-      offset = (asarray(index[1]) * asarray(shape))[1:]
+  def _get(self, block):
+      """
+      Perform NMF on a block to identify spatial regions.
+      """
       dims = block.shape[1:]
       max_size = prod(dims) / 2 if self.max_size == 'full' else self.max_size
 
@@ -58,7 +66,7 @@ class NMF(object):
           for ii in ids:
               r = regions == ii
               r = median_filter(r, 2)
-              coords = asarray(where(r)).T + offset
+              coords = asarray(where(r)).T
               if (size(coords) > 0) and (size(coords) < max_size):
                   combined.append(one(coords))
 

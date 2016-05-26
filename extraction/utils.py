@@ -71,7 +71,7 @@ def make_gaussian(shape=(100, 200), n=5, t=100, sd=3, noise=0.1, seed=None, engi
         frame = zeros(shape)
         for nn in range(n):
             base = zeros(shape)
-            base[centers[nn][0], centers[nn][1]] = 1
+            base[int(centers[nn][0]), int(centers[nn][1])] = 1
             img = gaussian_filter(base, sd)
             img = img/max(img)
             frame += img * series[nn][tt]

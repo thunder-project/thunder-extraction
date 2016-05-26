@@ -45,4 +45,4 @@ def test_model_transform_single(eng):
     im2 = [[7, 8], [9, 10]]
     data = fromarray([im0, im1, im2], engine=eng)
     transformed = model.transform(data)
-    assert allclose(transformed.toarray(), [[0.5, 3.5, 7.5]])
+    assert allclose(transformed.toarray(), [0.5, 3.5, 7.5])

@@ -36,7 +36,7 @@ class ExtractionModel(object):
             selections.append([array(indices) for indices in transformed])
 
         def mean_by_indices(image):
-            out = array([mean(image[indices]) for indices in selections]).reshape((1, -1)).squeeze()
+            out = array([mean(image[indices]) for indices in selections]).reshape((1, -1))
             return out
 
         return images.map(mean_by_indices).toseries()
