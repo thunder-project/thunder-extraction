@@ -19,17 +19,14 @@ pip install thunder-extraction
 
 ```python
 # generate data
-
 from extraction.utils import make_gaussian
 data = make_gaussian()
 
 # fit a model
-
 from extraction import NMF
 model = NMF().fit(data)
 
 # extract sources by transforming data
-
 sources = model.transform(data)
 ```
 
