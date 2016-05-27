@@ -39,7 +39,7 @@ from extraction import NMF
 algorithm = NMF(k=10)
 ```
 
-Algorithms can be fit to data in the form of a `thunder` `images` object or an `x by y (by z) by t` `numpy` array
+Algorithms can be fit to data in the form of a [`thunder`](https://github.com/thunder-project/thunder) `images` object or an `t,x,y(,z)` [`numpy`](https://github.com/numpy/numpy) array
 
 ```python
 model = algorithm.fit(data)
@@ -59,7 +59,7 @@ All algorithms have the following methods
 
 #### `algorithm.fit(data, opts)`
 
-Fits the algorithm to the data, which should be a collection of time-varying images. It can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a [`numpy`](https://github.com/numpy/numpy) array with shape `t,z,y,x` or `t,y,x`.
+Fits the algorithm to the data, which should be a collection of time-varying images. It can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a [`numpy`](https://github.com/numpy/numpy) array with shape `t,x,y(,z)`.
 
 ### model
 
@@ -71,7 +71,7 @@ The spatial regions identified during fitting.
 
 #### `model.transform(data)`
 
-Transform a new data set using the `model`, by averaging pixels within each of the `regions`. As with fitting, `data` can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a `numpy` array with shape `t,x,y(,z)`. It will return a [`thunder`](https://github.com/thunder-project/thunder) `series` object.
+Transform a new data set using the `model`, by averaging pixels within each of the `regions`. As with fitting, `data` can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a `numpy` array with shape `t,x,y(,z)`. It will return a [`thunder`](https://github.com/thunder-project/thunder) `series` object, which can be converted to a [`numpy`](https://github.com/numpy/numpy) array by calling `toarray()`.
 
 ## list of algorithms
 
