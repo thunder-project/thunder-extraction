@@ -39,7 +39,7 @@ from extraction import NMF
 algorithm = NMF(k=10)
 ```
 
-Algorithms can be fit to data in the form of a `thunder` `images` object or an `x by y by z by t` `numpy` array
+Algorithms can be fit to data in the form of a `thunder` `images` object or an `x by y (by z) by t` `numpy` array
 
 ```python
 model = algorithm.fit(data)
