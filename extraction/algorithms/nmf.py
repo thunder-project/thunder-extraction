@@ -6,8 +6,8 @@ from skimage.morphology import remove_small_objects
 import itertools
 
 from regional import one, many
-from ..model import ExtractionModel
 from ..utils import check_images
+from ..model import ExtractionModel
 
 class NMF(object):
   """
@@ -24,7 +24,7 @@ class NMF(object):
   def fit(self, images, chunk_size=None):
       images = check_images(images)
       chunk_size = chunk_size if chunk_size is not None else images.shape[1:]
-      blocks = images.toblocks(size=chunk_size)
+      blocks = images.toblocks(chunk_size=chunk_size)
       sources = asarray(blocks.map_generic(self._get))
 
       # add offsets based on block coordinates
