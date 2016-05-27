@@ -15,11 +15,7 @@ This package contains a collection of approaches for solving this problem. It de
 pip install thunder-extraction
 ```
 
-## examples
-
-### algorithms
-
-In this example we'll generate data and fit a model
+## example
 
 ```python
 # generate data
