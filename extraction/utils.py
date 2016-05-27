@@ -80,7 +80,7 @@ def make_gaussian(shape=(100, 200), n=5, t=100, sd=3, noise=0.1, seed=None, engi
 
     def point_to_circle(center, radius):
         rr, cc = circle(center[0], center[1], radius)
-        return array(zip(rr, cc))
+        return array(list(zip(rr, cc)))
 
     r = round(sd * 1.5)
 
