@@ -1,6 +1,3 @@
-# from pyspark import SparkContext
-# sc = SparkContext()
-
 # generate data
 
 from extraction.utils import make_gaussian
@@ -11,9 +8,7 @@ data = make_gaussian(noise=0.5)
 from extraction import NMF
 model = NMF().fit(data, chunk_size=(100,200))
 
-# extract sources by transforming data
-
-#sources = model.transform(data)
+# show estimated sources
 
 import matplotlib.pyplot as plt
 from showit import image
