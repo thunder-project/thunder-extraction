@@ -1,7 +1,7 @@
 # thunder-extraction
 
-[![Latest Version](https://img.shields.io/pypi/v/thunder-python.svg?style=flat-square)](https://pypi.python.org/pypi/thunder-python)
-[![Build Status](https://img.shields.io/travis/thunder-project/thunder/master.svg?style=flat-square)](https://travis-ci.org/thunder-project/thunder) 
+[![Latest Version](https://img.shields.io/pypi/v/thunder-extraction.svg?style=flat-square)](https://pypi.python.org/pypi/thunder-extraction)
+[![Build Status](https://img.shields.io/travis/thunder-project/thunder-extraction/master.svg?style=flat-square)](https://travis-ci.org/thunder-project/thunder-extraction) 
 
 > algorithms for feature extraction from spatio-temporal data
 
