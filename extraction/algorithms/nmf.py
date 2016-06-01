@@ -21,10 +21,10 @@ class NMF(object):
       self.overlap = overlap
       self.percentile = percentile
 
-  def fit(self, images, chunk_size=None):
+  def fit(self, images, chunk_size=None, padding=None):
       images = check_images(images)
       chunk_size = chunk_size if chunk_size is not None else images.shape[1:]
-      blocks = images.toblocks(chunk_size=chunk_size)
+      blocks = images.toblocks(chunk_size=chunk_size, padding=padding)
       sources = asarray(blocks.map_generic(self._get))
 
       # add offsets based on block coordinates
@@ -32,6 +32,9 @@ class NMF(object):
           offset = (asarray(inds) * asarray(blocks.blockshape)[1:])
           for source in sources[inds]:
               source.coordinates += offset
+              if padding:
+                leftpad = [blocks.padding[i + 1] if inds[i] != 0 else 0 for i in range(len(inds))]
+                source.coordinates -= asarray(leftpad)
       
       # flatten list and create model
       flattened = list(itertools.chain.from_iterable(sources.flatten().tolist()))
