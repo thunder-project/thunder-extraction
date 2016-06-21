@@ -25,7 +25,7 @@ class ExtractionModel(object):
         """
         images = check_images(images)
         
-        ndims = len(images.dims)
+        ndims = len(images.value_shape)
         selections = []
         for region in self.regions:
             transformed = [[] for _ in range(ndims)]
