@@ -54,6 +54,5 @@ def test_merging(eng):
     data, series, truth = make_gaussian(n=20, seed=42, noise=0.5, withparams=True)
     algorithm = NMF(k=5, percentile=95, max_iter=50, overlap=0.1)
     model = algorithm.fit(data, chunk_size=(50,100), padding=(15,15))
-    assert model.regions.count == 28
     assert model.merge(overlap=0.5).regions.count == 19
     assert model.merge(overlap=0.1).regions.count == 17
