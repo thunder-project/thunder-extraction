@@ -73,6 +73,10 @@ The spatial regions identified during fitting.
 
 Transform a new data set using the `model`, by averaging pixels within each of the `regions`. As with fitting, `data` can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a `numpy` array with shape `t,x,y(,z)`. It will return a [`thunder`](https://github.com/thunder-project/thunder) `series` object, which can be converted to a [`numpy`](https://github.com/numpy/numpy) array by calling `toarray()`.
 
+#### `model.merge(self, overlap=0.5, max_iter=2, k_nearest=10)`
+
+Merge overlapping regions in the model, by greedily comparing nearby regions and merging those that are similar to one another. Only considers `k` nearest neighbors to speed up computation.
+
 ## list of algorithms
 
 Here are all the algorithms currently available.
