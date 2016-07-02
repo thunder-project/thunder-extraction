@@ -1,6 +1,7 @@
-from regional import one, many
-from numpy import mean, array
 from copy import deepcopy
+from numpy import mean, array, asarray, argsort
+from scipy.spatial.distance import cdist
+from regional import one, many
 
 from .utils import check_images
 
@@ -40,13 +41,15 @@ class ExtractionModel(object):
 
         return images.map(mean_by_indices).toseries()
 
-    def merge(self, overlap=0.5, max_iter=2):
+    def merge(self, overlap=0.5, max_iter=2, k_nearest=10):
         """
         Merge overlapping regions.
 
         Uses a greedy algorithm in which each region is merged with
-        regions that have high overlap, concluding after one or more
-        iterations are made over the full set.
+        regions that have high overlap. Only the k nearest neighbors are 
+        considered at each step, which dramatically speeds up the algorithm. 
+        The procedure concludes after making one or more iterations 
+        over all remaining regions.
 
         Parameters
         ----------
@@ -55,14 +58,25 @@ class ExtractionModel(object):
 
         max_iter : int
             Number of iterations.
-        """
+
+        k_nearest : int
+            Number of nearest neighbors to consider.
+        """ 
+        def top_k(centers, target, k_nearest):
+            distances = cdist(centers, asarray(target).reshape(1,2)).flatten()
+            return argsort(distances)[0:k_nearest]
+
         def merge_once(initial):
+            centers = asarray(initial.center)
+            nearest = [top_k(centers, source.center, k_nearest) for source in initial]
+
             regions = []
             skip = []
             keep = []
 
             for ia, source in enumerate(initial):
-                for ib, other in enumerate(initial):
+                for ib in nearest[ia]:
+                    other = initial[ib]
                     if not ia == ib and source.overlap(other) > overlap:
                         source = source.merge(other)
                         if ib not in keep:
@@ -71,7 +85,7 @@ class ExtractionModel(object):
                 regions.append(source)
                 keep.append(ia)
 
-            return [region for ir, region in enumerate(regions) if ir not in skip]
+            return many([region for ir, region in enumerate(regions) if ir not in skip])
 
         regions = merge_once(self.regions)
 
