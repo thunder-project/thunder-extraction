@@ -1,4 +1,4 @@
-from numpy import clip, inf, percentile, asarray, where, size, prod, unique
+from numpy import clip, inf, percentile, asarray, where, size, prod, unique, bincount
 from scipy.ndimage import median_filter
 from sklearn.decomposition import NMF as SKNMF
 from skimage.measure import label
@@ -63,7 +63,15 @@ class NMF(object):
       combined = []
       for component in components:
           tmp = component > percentile(component, self.percentile)
-          regions = remove_small_objects(label(tmp), min_size=self.min_size)
+          labels, num = label(tmp, return_num=True)
+          if num == 1:
+            counts = bincount(labels.ravel())
+            if counts[1] < self.min_size:
+              continue
+            else:
+              regions = labels
+          else:
+            regions = remove_small_objects(labels, min_size=self.min_size)
           ids = unique(regions)
           ids = ids[ids > 0]
           for ii in ids:
