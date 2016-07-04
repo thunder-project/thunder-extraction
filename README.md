@@ -75,7 +75,7 @@ Transform a new data set using the `model`, by averaging pixels within each of t
 
 #### `model.merge(overlap=0.5, max_iter=2, k_nearest=10)`
 
-Merge overlapping regions in the model, by greedily comparing nearby regions and merging those that are similar to one another. Only considers `k` nearest neighbors to speed up computation.
+Merge overlapping regions in the model, by greedily comparing nearby regions and merging those that are similar to one another more than the specified `overlap`. Repeats greedy merging process `max_iter` times. Only considers `k_nearest` neighbors to speed up computation.
 
 ## list of algorithms
 
