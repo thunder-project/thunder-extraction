@@ -11,8 +11,8 @@ nmfmodel = NMF().fit(data, chunk_size=(100,200))
 # OR
 
 #fit a cnmf model
-from extraction import cnmf
-cnmfmodel = CNMF().fit(data, chunk_size=(100,200))
+from extraction import CNMFWRAP
+cnmfmodel = CNMFWRAP().fit(data, chunk_size=(100,200))
 
 # show estimated sources
 
