@@ -1,6 +1,6 @@
 from numpy import clip, inf, percentile, asarray, where, size, prod, unique, bincount
 from scipy.ndimage import median_filter
-from cnmf import main as CNMF
+import cnmf
 from skimage.measure import label
 from skimage.morphology import remove_small_objects
 import itertools
@@ -41,13 +41,13 @@ class CNMFWRAP(object):
       """
       Perform NMF on a block to identify spatial regions.
       """
-      algorithm = CNMF( k=self.k, gSig=self.gSig, merge_thresh=self.merge_thresh)
+      algorithm = cnmf.CNMF( k=self.k, gSig=self.gSig, merge_thresh=self.merge_thresh)
 
-      model, temporaldata = algorithm.fit(data)
+      model, temporaldata = algorithm.fit(block)
       regions=[]
 
       def convert(array):
-        r,c = np.where(array > 0.0)
+        r,c = where(array > 0.0)
         return one(zip(r,c))
 
       for i in range(model.shape[2]):
