@@ -61,6 +61,10 @@ All algorithms have the following methods
 
 Fits the algorithm to the data, which should be a collection of time-varying images. It can either be a [`thunder`](https://github.com/thunder-project/thunder) `images` object, or a [`numpy`](https://github.com/numpy/numpy) array with shape `t,x,y(,z)`.
 
+For many algorithms, `fit` will take the optional arguments `chunk_size` and `padding`, which allow the algorithm to be perform on smaller chunks of the data, either in serial (if running locally) or in parallel (if running on a cluster). 
+
+A `chunk` is defined a subset of the image in space, including all time points. The `chunk_size` is the size of each chunk in pixels, and `padding` is the amount by which to pad the chunks in each dimension. For example, given a `(100,100,500)` data set, we could set `chunk_size=(50,50)` resulting in four chunks each of which are `(50,50,500)`.
+
 ### model
 
 The result of fitting an `algorithm` is a `model`. Every `model` has the following properties and methods.
