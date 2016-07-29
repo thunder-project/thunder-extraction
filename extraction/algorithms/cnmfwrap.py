@@ -1,4 +1,4 @@
-from numpy import clip, inf, percentile, asarray, where, size, prod, unique, bincount
+from numpy import clip, inf, percentile, asarray, where, size, prod, unique, bincount, std, mean
 from scipy.ndimage import median_filter
 import cnmf
 from skimage.measure import label
@@ -13,10 +13,12 @@ class CNMFWRAP(object):
   """
   Source extraction using local non-negative matrix factorization.
   """
-  def __init__(self, k=5, gSig=[4,4], merge_thresh=0.8):
+  def __init__(self, k=5, gSig=[4,4], merge_thresh=0.8, weight_thresh=0.0, p=2):
       self.k = k
       self.gSig = gSig
       self.merge_thresh = merge_thresh
+      self.weight_thresh=weight_thresh
+      self.p=p
 
   def fit(self, images, chunk_size=None, padding=None):
       images = check_images(images)
@@ -41,17 +43,20 @@ class CNMFWRAP(object):
       """
       Perform NMF on a block to identify spatial regions.
       """
-      algorithm = cnmf.CNMF( k=self.k, gSig=self.gSig, merge_thresh=self.merge_thresh)
+      algorithm = cnmf.CNMF( k=self.k, gSig=self.gSig, merge_thresh=self.merge_thresh, p=self.p)
 
       model, temporaldata = algorithm.fit(block)
       regions=[]
 
       def convert(array):
-        r,c = where(array > 0.0)
+        r,c = where(array > self.weight_thresh*array.max())#&&std(temporaldata())
         return one(zip(r,c))
 
       for i in range(model.shape[2]):
-        regions.append(convert(model[:,:,i]))
+        region = convert(model[:,:,i])
+        spike = temporaldata[i,:]
+        if len(region.coordinates) > 0 and std(spike)>mean(spike)*.1:
+          regions.append(region)
       #regions = [convert(model[:,:,i]) for i in range(model.shape[2])]
       return regions
      
