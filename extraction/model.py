@@ -1,3 +1,4 @@
+from json import load, dump
 from copy import deepcopy
 from numpy import mean, array, asarray, argsort
 from scipy.spatial.distance import cdist
@@ -14,6 +15,19 @@ class ExtractionModel(object):
             self.regions = regions
         else:
             raise Exception("Input type not recognized, must be many regions")
+
+    @staticmethod
+    def load(path):
+        with open(path, 'r') as f:
+            raw = load(f)
+        regions = many([x['coordinates'] for x in raw['regions']])
+        return ExtractionModel(regions)
+
+    def save(self, path):
+        tmpregions = deepcopy(self.regions)
+        listified = [{'coordinates': x.tolist()} for x in tmpregions.coordinates]
+        with open(path, 'w') as f:
+            dump({'regions': listified}, f)
 
     def transform(self, images):
         """

@@ -57,3 +57,8 @@ def test_merging(eng):
     assert model.regions.count > 20
     assert model.merge(overlap=0.5).regions.count <= 20
     assert model.merge(overlap=0.1).regions.count < 18
+
+
+def test_load(eng):
+    model = ExtractionModel.load('test/resources/regions.json')
+    assert allclose(model.regions.coordinates, [[[0, 1], [0, 2]], [[1, 2], [1, 3]]])
