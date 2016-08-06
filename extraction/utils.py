@@ -5,7 +5,7 @@ from skimage.draw import circle
 from thunder.images import fromarray, fromlist, Images
 
 def load(path):
-    from model import ExtractionModel
+    from .model import ExtractionModel
     return ExtractionModel.load(path)
 
 

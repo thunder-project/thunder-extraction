@@ -5,7 +5,7 @@ from thunder.images import fromarray
 
 from extraction.model import ExtractionModel
 from extraction.utils import make_gaussian
-from extraction import NMF
+from extraction import NMF, load
 
 pytestmark = pytest.mark.usefixtures("eng")
 
@@ -59,6 +59,11 @@ def test_merging(eng):
     assert model.merge(overlap=0.1).regions.count < 18
 
 
-def test_load(eng):
+def test_load():
     model = ExtractionModel.load('test/resources/regions.json')
+    assert allclose(model.regions.coordinates, [[[0, 1], [0, 2]], [[1, 2], [1, 3]]])
+
+
+def test_load_alternate_import(eng):
+    model = load('test/resources/regions.json')
     assert allclose(model.regions.coordinates, [[[0, 1], [0, 2]], [[1, 2], [1, 3]]])
